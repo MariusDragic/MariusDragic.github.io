@@ -1,7 +1,9 @@
 import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SectionTitle from "../components/SectionTitle";
 
+gsap.registerPlugin(ScrollTrigger);
 
 const Contact = () => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
@@ -9,65 +11,62 @@ const Contact = () => {
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
-    // Section reveal (more vertical + softer fade, trigger later)
+
+    // 🟩 Animation principale de la section
     gsap.fromTo(
       el,
-      { y: 100, opacity: 0 },
+      { y: 120, opacity: 0 },
       {
         y: 0,
         opacity: 0.95,
         duration: 1,
         ease: "power2.out",
-        scrollTrigger: { trigger: el, start: "top 95%", once: true },
+        scrollTrigger: {
+          trigger: el,
+          start: "top 95%",
+          once: true,
+        },
       }
     );
 
-    // Heading pop-in
-    const heading = el.querySelector<HTMLDivElement>('.contact-stagger');
-    if (heading) {
-      gsap.fromTo(
-        heading,
-        { y: 18, opacity: 0, scale: 0.995 },
-        { y: 0, opacity: 1, scale: 1, duration: 0.7, ease: 'power2.out', scrollTrigger: { trigger: el, start: 'top 80%', once: true } }
-      );
-    }
-
-    // Card reveal with subtle shadow and scale
-    const card = el.querySelector<HTMLDivElement>('.contact-card');
-    if (card) {
-      gsap.set(card, { opacity: 0, y: 18, scale: 0.995, boxShadow: '0 0 0 rgba(0,0,0,0)' });
-      gsap.to(card, {
+    // 🟦 Animation du titre
+    const title = el.querySelectorAll(".contact-stagger");
+    gsap.fromTo(
+      title,
+      { y: 110, opacity: 0 },
+      {
         y: 0,
-        opacity: 1,
-        scale: 1,
-        boxShadow: '0 14px 40px rgba(2,6,23,0.55)',
-        duration: 0.9,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 80%', toggleActions: 'play none none reset', once: false },
-        onReverseComplete: () => { card.style.boxShadow = ''; },
-      });
-    }
-    // Heading pop-in
-    if (heading) {
-      gsap.fromTo(
-        heading,
-        { y: 30, opacity: 0, scale: 0.995 },
-        { y: 0, opacity: 0.95, scale: 1, duration: 0.85, ease: 'power2.out', scrollTrigger: { trigger: el, start: 'top 95%', once: true } }
-      );
-    }
-    
-    // Card reveal with subtle shadow and scale
-    if (card) {
-      gsap.set(card, { opacity: 0, y: 40, scale: 0.99, boxShadow: '0 0 0 rgba(0,0,0,0)' });
+        opacity: 0.95,
+        duration: 1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 95%",
+          once: true,
+        },
+      }
+    );
+
+    // 🟪 Animation du bloc contact (identique aux project cards)
+    const card = el.querySelectorAll<HTMLDivElement>(".contact-card");
+    if (card.length > 0) {
+      gsap.set(card, { opacity: 0, y: 60, scale: 0.985, boxShadow: "0 0 0 rgba(0,0,0,0)" });
       gsap.to(card, {
         y: 0,
         opacity: 0.95,
         scale: 1,
-        boxShadow: '0 18px 48px rgba(2,6,23,0.55)',
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 95%', toggleActions: 'play none none reset', once: false },
-        onReverseComplete: () => { card.style.boxShadow = ''; },
+        boxShadow: "0 12px 36px rgba(2,6,23,0.55)",
+        duration: 0.95,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 95%",
+          toggleActions: "play none none reset",
+          once: false,
+        },
+        onReverseComplete: () => {
+          card.forEach((c) => (c.style.boxShadow = ""));
+        },
       });
     }
   }, []);
@@ -82,22 +81,25 @@ const Contact = () => {
           />
         </div>
 
-        <div className="card p-4 sm:p-6 md:p-8 max-w-xl mx-auto text-center contact-card">
-          <p className="text-white/80 text-sm sm:text-base">
-            You can email me directly. I reply quickly.
-          </p>
-          <a
-            href="mailto:marius.dragic@gmail.com"
-            className="inline-block mt-5 sm:mt-6 px-4 sm:px-6 py-2 sm:py-3 rounded-lg bg-secondary text-black font-semibold hover:bg-accent transition shadow-glow text-sm sm:text-base"
-          >
-            Send an email
-          </a>
+        {/* 🟦 Carte contact avec EXACTEMENT le même effet visuel que Skills/Projects */}
+        <div className="card contact-card p-6 sm:p-8 md:p-10 max-w-xl mx-auto text-center hover:scale-[1.04] hover:shadow-glow transition-transform duration-200 cursor-pointer">
+  <p className="text-white/80 text-sm sm:text-base">
+    You can email me directly. I reply quickly.
+  </p>
 
-          <div className="mt-5 sm:mt-6 text-xs sm:text-sm text-white/50">
-            <p>Based in Paris, France • Available for remote/hybrid</p>
-            <p className="mt-1">Last site update: {new Date().toLocaleDateString()}</p>
-          </div>
-        </div>
+  <a
+    href="mailto:marius.dragic@gmail.com"
+    className="inline-block mt-6 px-5 py-3 rounded-lg bg-secondary text-black font-semibold hover:bg-accent transition text-sm sm:text-base shadow-glow"
+  >
+    Send an email
+  </a>
+
+  <div className="mt-6 text-xs sm:text-sm text-white/50">
+    <p>Based in Paris, France • Available for remote/hybrid</p>
+    <p className="mt-1">Last site update: {new Date().toLocaleDateString()}</p>
+  </div>
+</div>
+
       </div>
     </section>
   );
