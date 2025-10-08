@@ -54,7 +54,7 @@ const About = () => {
         <div className="skills-stagger">
           <SectionTitle
             title="Skills"
-            subtitle="I design reliable, high-performance AI solutions — from generative modeling to large-scale deployment."
+            subtitle="I design reliable, high-performance AI solutions — from machine learning to large-scale deployment."
           />
         </div>
 

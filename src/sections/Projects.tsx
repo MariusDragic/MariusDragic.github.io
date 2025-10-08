@@ -153,7 +153,7 @@ const Projects = () => {
         <div className="projects-stagger">
           <SectionTitle
             title="My Projects"
-            subtitle="A selection of GitHub repositories — focused on AI, RAG, and generative research."
+            subtitle="A selection of GitHub repositories — GenAI, RAG/LLMs, Reinforcement Learning and more."
           />
         </div>
 
