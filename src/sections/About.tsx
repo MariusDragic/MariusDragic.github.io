@@ -104,7 +104,7 @@ const About = () => {
               style={{ background: 'white' }}
             />
             <a
-              href="/cv.pdf"
+              href="/CV_Marius_Dragic.pdf"
               download
               className="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-black font-semibold rounded hover:bg-accent transition text-base shadow-glow"
             >
