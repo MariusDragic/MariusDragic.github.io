@@ -4,10 +4,10 @@ emoji: 💼
 colorFrom: blue
 colorTo: purple
 sdk: static
-app_file: index.html
-static_build_command: npm ci && npm run build
-static_build_dir: dist
 pinned: false
+short_description: My ML Engineer Portfolio with React
+app_build_command: npm run build
+app_file: dist/index.html
 ---
 
 # React + TypeScript + Vite
