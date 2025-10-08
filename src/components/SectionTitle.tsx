@@ -13,15 +13,15 @@ const SectionTitle = ({ title, subtitle }: SectionTitleProps) => {
     const el = ref.current;
     gsap.fromTo(
       el,
-      { y: 20, opacity: 0 },
+      { y: 70, opacity: 0 },
       {
         y: 0,
-        opacity: 1,
-        duration: 0.7,
+        opacity: 0.95,
+        duration: 0.9,
         ease: "power3.out",
         scrollTrigger: {
           trigger: el,
-          start: "top 80%",
+          start: "top 95%",
         },
       }
     );

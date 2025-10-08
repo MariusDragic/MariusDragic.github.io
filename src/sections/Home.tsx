@@ -13,36 +13,36 @@ const Home = () => {
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
-    // Section reveal
+  // Section reveal (more vertical + softer fade, trigger later)
     gsap.fromTo(
       el,
-      { y: 40, opacity: 0 },
+      { y: 90, opacity: 0 },
       {
         y: 0,
-        opacity: 1,
-        duration: 0.8,
+        opacity: 0.95,
+        duration: 1,
         ease: "power2.out",
         scrollTrigger: {
           trigger: el,
-          start: "top 80%",
+          start: "top 95%",
           once: true,
         },
       }
-    );
-    // Stagger children
-    const children = el.querySelectorAll(".hero-line, .pfp, .socials");
+  );
+  // Stagger children (stronger vertical offset)
+  const children = el.querySelectorAll(".hero-line, .pfp, .socials");
     gsap.fromTo(
       children,
-      { y: 32, opacity: 0 },
+      { y: 110, opacity: 0 },
       {
         y: 0,
-        opacity: 1,
-        duration: 0.8,
-        stagger: 0.15,
+        opacity: 0.95,
+        duration: 1,
+        stagger: 0.16,
         ease: "power2.out",
         scrollTrigger: {
           trigger: el,
-          start: "top 80%",
+          start: "top 95%",
           once: true,
         },
       }

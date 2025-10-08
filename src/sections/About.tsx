@@ -3,24 +3,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import SectionTitle from "../components/SectionTitle";
 import cvPreview from "../assets/cv_preview.png"; // aperçu image
-import { FaCloud, FaComments, FaGraduationCap, FaLayerGroup, FaServer, FaChartBar, FaDownload } from "react-icons/fa";
-
-const items = [
-  { icon: <FaCloud size={28} />, title: "Cloud Computing", desc: "Storage, training, and deployment of models." },
-  { icon: <FaComments size={28} />, title: "NLP", desc: "Natural language understanding and generation." },
-  { icon: <FaGraduationCap size={28} />, title: "Machine Learning", desc: "Theory, math, and modern implementations." },
-  { icon: <FaServer size={28} />, title: "Model Deployment", desc: "REST APIs & CI/CD for production." },
-  {
-    icon: <FaLayerGroup size={28} />,
-    title: "RAG / LLM",
-    desc: "Built Retrieval-Augmented Generation pipelines with LLM integration for intelligent document search and reasoning in real-world applications."
-  },
-  {
-    icon: <FaChartBar size={28} />,
-    title: "GenAI",
-    desc: "Developed generative AI frameworks using Latent Diffusion Models and ControlNet to synthesize rare visual scenarios and enhance training datasets."
-  },
-];
+// icon imports removed (not needed directly in this file)
 
 const About = () => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
@@ -30,15 +13,15 @@ const About = () => {
     if (!el) return;
     gsap.fromTo(
       el,
-      { y: 40, opacity: 0 },
+      { y: 100, opacity: 0 },
       {
         y: 0,
-        opacity: 1,
-        duration: 0.8,
+        opacity: 0.95,
+        duration: 0.95,
         ease: "power2.out",
         scrollTrigger: {
           trigger: el,
-          start: "top 80%",
+          start: "top 95%",
           once: true,
         },
       }
@@ -49,16 +32,16 @@ const About = () => {
     );
     gsap.fromTo(
       children,
-      { y: 32, opacity: 0 },
+      { y: 120, opacity: 0 },
       {
         y: 0,
-        opacity: 1,
-        duration: 0.8,
-        stagger: 0.13,
+        opacity: 0.95,
+        duration: 0.95,
+        stagger: 0.14,
         ease: "power2.out",
         scrollTrigger: {
           trigger: el,
-          start: "top 80%",
+          start: "top 95%",
           once: true,
         },
       }
@@ -68,11 +51,12 @@ const About = () => {
   return (
     <section id="about" className="section-pad">
       <div ref={sectionRef} className="container-main">
-        <SectionTitle
-          title="Skills"
-          subtitle="I design reliable, high-performance AI solutions — from generative modeling to large-scale deployment."
-          className="skills-stagger"
-        />
+        <div className="skills-stagger">
+          <SectionTitle
+            title="Skills"
+            subtitle="I design reliable, high-performance AI solutions — from generative modeling to large-scale deployment."
+          />
+        </div>
 
         <div className="max-w-5xl mx-auto w-full">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

@@ -1,5 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 import SectionTitle from "../components/SectionTitle";
 import ProjectCard from "../components/ProjectCard";
 
@@ -60,39 +63,88 @@ const Projects = () => {
     const el = sectionRef.current;
     if (!el) return;
 
+    // ScrollTrigger already registered at module scope
+    // Section intro (title + container) - more vertical + softer fade, later trigger
     gsap.fromTo(
       el,
-      { y: 40, opacity: 0 },
+      { y: 120, opacity: 0 },
       {
         y: 0,
-        opacity: 1,
-        duration: 0.8,
+        opacity: 0.95,
+        duration: 1,
         ease: "power2.out",
         scrollTrigger: {
           trigger: el,
-          start: "top 80%",
+          start: "top 95%",
           once: true,
         },
       }
     );
 
-    const children = el.querySelectorAll(".projects-stagger, .projects-grid, .projects-card");
+    // Stagger intro for top-level children (title / grids)
+    const introChildren = el.querySelectorAll(".projects-stagger, .projects-grid");
     gsap.fromTo(
-      children,
-      { y: 32, opacity: 0 },
+      introChildren,
+      { y: 110, opacity: 0 },
       {
         y: 0,
-        opacity: 1,
-        duration: 0.8,
-        stagger: 0.13,
+        opacity: 0.95,
+        duration: 1,
+        stagger: 0.14,
         ease: "power2.out",
         scrollTrigger: {
           trigger: el,
-          start: "top 80%",
+          start: "top 95%",
           once: true,
         },
       }
     );
+
+    // Per-card animation: stronger vertical offset + faded endpoint + scale
+    const cards = el.querySelectorAll<HTMLDivElement>(".projects-grid .projects-card");
+    if (cards.length > 0) {
+      gsap.set(cards, { opacity: 0, y: 60, scale: 0.985, boxShadow: '0 0 0 rgba(0,0,0,0)' });
+      gsap.to(cards, {
+        y: 0,
+        opacity: 0.95,
+        scale: 1,
+        boxShadow: '0 12px 36px rgba(2,6,23,0.55)',
+        duration: 0.95,
+        ease: "power3.out",
+        stagger: 0.14,
+        scrollTrigger: {
+          trigger: el,
+          start: "top 95%",
+          toggleActions: "play none none reset",
+          once: false,
+        },
+        onReverseComplete: () => {
+          // remove shadow when reversing
+          cards.forEach((c) => (c.style.boxShadow = ""));
+        },
+      });
+    }
+
+    // Animate group headings separately for a subtle pop-in
+    const headings = el.querySelectorAll<HTMLHeadingElement>('.group-heading');
+    if (headings.length > 0) {
+      gsap.fromTo(
+        headings,
+        { y: 30, opacity: 0, scale: 0.995 },
+        {
+          y: 0,
+          opacity: 0.95,
+          scale: 1,
+          duration: 0.85,
+          ease: 'power2.out',
+          stagger: 0.12,
+          scrollTrigger: { trigger: el, start: 'top 95%', once: true },
+        }
+      );
+    }
+
+    // no cleanup required — ScrollTrigger handles lifecycle; leaving hooks in place
+    return undefined;
   }, []);
 
   return (
@@ -113,7 +165,7 @@ const Projects = () => {
           <div className="space-y-10">
             {/* Professional Projects */}
             <div>
-              <h3 className="text-2xl font-semibold mb-4 flex items-center gap-2">
+              <h3 className="text-2xl font-semibold mb-4 flex items-center gap-2 group-heading">
                 Professional Projects{" "}
                 <span className="text-secondary text-2xl leading-none">/</span>
               </h3>
@@ -130,7 +182,7 @@ const Projects = () => {
 
             {/* Academic Research Projects */}
             <div>
-              <h3 className="text-2xl font-semibold mb-4 flex items-center gap-2">
+              <h3 className="text-2xl font-semibold mb-4 flex items-center gap-2 group-heading">
                 Academic Research Projects{" "}
                 <span className="text-secondary text-2xl leading-none">/</span>
               </h3>

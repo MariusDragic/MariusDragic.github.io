@@ -9,39 +9,67 @@ const Contact = () => {
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
+    // Section reveal (more vertical + softer fade, trigger later)
     gsap.fromTo(
       el,
-      { y: 40, opacity: 0 },
+      { y: 100, opacity: 0 },
       {
         y: 0,
-        opacity: 1,
-        duration: 0.8,
+        opacity: 0.95,
+        duration: 1,
         ease: "power2.out",
-        scrollTrigger: {
-          trigger: el,
-          start: "top 80%",
-          once: true,
-        },
+        scrollTrigger: { trigger: el, start: "top 95%", once: true },
       }
     );
-    // Stagger children (title, card, etc.)
-    const children = el.querySelectorAll(".contact-stagger, .contact-card");
-    gsap.fromTo(
-      children,
-      { y: 32, opacity: 0 },
-      {
+
+    // Heading pop-in
+    const heading = el.querySelector<HTMLDivElement>('.contact-stagger');
+    if (heading) {
+      gsap.fromTo(
+        heading,
+        { y: 18, opacity: 0, scale: 0.995 },
+        { y: 0, opacity: 1, scale: 1, duration: 0.7, ease: 'power2.out', scrollTrigger: { trigger: el, start: 'top 80%', once: true } }
+      );
+    }
+
+    // Card reveal with subtle shadow and scale
+    const card = el.querySelector<HTMLDivElement>('.contact-card');
+    if (card) {
+      gsap.set(card, { opacity: 0, y: 18, scale: 0.995, boxShadow: '0 0 0 rgba(0,0,0,0)' });
+      gsap.to(card, {
         y: 0,
         opacity: 1,
-        duration: 0.8,
-        stagger: 0.13,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: el,
-          start: "top 80%",
-          once: true,
-        },
-      }
-    );
+        scale: 1,
+        boxShadow: '0 14px 40px rgba(2,6,23,0.55)',
+        duration: 0.9,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 80%', toggleActions: 'play none none reset', once: false },
+        onReverseComplete: () => { card.style.boxShadow = ''; },
+      });
+    }
+    // Heading pop-in
+    if (heading) {
+      gsap.fromTo(
+        heading,
+        { y: 30, opacity: 0, scale: 0.995 },
+        { y: 0, opacity: 0.95, scale: 1, duration: 0.85, ease: 'power2.out', scrollTrigger: { trigger: el, start: 'top 95%', once: true } }
+      );
+    }
+    
+    // Card reveal with subtle shadow and scale
+    if (card) {
+      gsap.set(card, { opacity: 0, y: 40, scale: 0.99, boxShadow: '0 0 0 rgba(0,0,0,0)' });
+      gsap.to(card, {
+        y: 0,
+        opacity: 0.95,
+        scale: 1,
+        boxShadow: '0 18px 48px rgba(2,6,23,0.55)',
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 95%', toggleActions: 'play none none reset', once: false },
+        onReverseComplete: () => { card.style.boxShadow = ''; },
+      });
+    }
   }, []);
 
   return (
