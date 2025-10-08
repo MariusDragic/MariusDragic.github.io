@@ -1,3 +1,15 @@
+---
+title: Portfolio Marius Dragic
+emoji: 💼
+colorFrom: blue
+colorTo: purple
+sdk: static
+app_file: index.html
+static_build_command: npm ci && npm run build
+static_build_dir: dist
+pinned: false
+---
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
