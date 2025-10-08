@@ -47,25 +47,20 @@ const Contact = () => {
       }
     );
 
-    // 🟪 Animation du bloc contact (identique aux project cards)
+    // 🟪 Animation du bloc contact - compatible avec hover CSS
     const card = el.querySelectorAll<HTMLDivElement>(".contact-card");
     if (card.length > 0) {
-      gsap.set(card, { opacity: 0, y: 60, scale: 0.985, boxShadow: "0 0 0 rgba(0,0,0,0)" });
+      gsap.set(card, { opacity: 0, y: 60, scale: 0.985 });
       gsap.to(card, {
         y: 0,
         opacity: 0.95,
         scale: 1,
-        boxShadow: "0 12px 36px rgba(2,6,23,0.55)",
         duration: 0.95,
         ease: "power3.out",
         scrollTrigger: {
           trigger: el,
-          start: "top 95%",
-          toggleActions: "play none none reset",
-          once: false,
-        },
-        onReverseComplete: () => {
-          card.forEach((c) => (c.style.boxShadow = ""));
+          start: "top 98%",
+          once: true,
         },
       });
     }

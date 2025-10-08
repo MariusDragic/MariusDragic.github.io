@@ -25,7 +25,7 @@ const ProjectCard = ({ repo }: ProjectCardProps) => {
   } = repo;
 
   return (
-    <article className="card p-4 sm:p-5 hover:shadow-glow group flex flex-col h-full">
+    <article className="card p-4 sm:p-5 hover:shadow-glow transition-all duration-200 cursor-pointer group flex flex-col h-full">
       <div className="flex items-start justify-between gap-2 sm:gap-3 flex-wrap">
         <h3 className="text-base sm:text-lg font-semibold group-hover:text-accent transition-colors break-words">
           {name}
