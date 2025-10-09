@@ -1,5 +1,5 @@
 
-import { FaGithub, FaStar, FaCodeBranch, FaGlobe } from "react-icons/fa";
+import { FaStar, FaCodeBranch, FaGlobe } from "react-icons/fa";
 
 interface ProjectCardProps {
   repo: {
@@ -25,21 +25,19 @@ const ProjectCard = ({ repo }: ProjectCardProps) => {
   } = repo;
 
   return (
-    <article className="card p-4 sm:p-5 hover:shadow-glow transition-all duration-200 cursor-pointer group flex flex-col h-full">
+    <a 
+      href={html_url}
+      target="_blank"
+      rel="noreferrer"
+      className="card p-4 sm:p-5 hover:shadow-glow transition-all duration-200 cursor-pointer group flex flex-col h-full"
+      title={`View ${name} on GitHub`}
+      aria-label={`Open ${name} repository on GitHub`}
+    >
       <div className="flex items-start justify-between gap-2 sm:gap-3 flex-wrap">
         <h3 className="text-base sm:text-lg font-semibold group-hover:text-accent transition-colors break-words">
           {name}
         </h3>
-        <a
-          href={html_url}
-          target="_blank"
-          rel="noreferrer"
-          className="text-white/80 hover:text-secondary"
-          title="View on GitHub"
-          aria-label={`Open ${name} on GitHub`}
-        >
-          <FaGithub />
-        </a>
+        {/* GitHub icon removed - whole card is now clickable */}
       </div>
 
       {description && (
@@ -69,7 +67,7 @@ const ProjectCard = ({ repo }: ProjectCardProps) => {
           </a>
         )}
       </div>
-    </article>
+    </a>
   );
 };
 
