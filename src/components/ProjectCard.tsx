@@ -1,5 +1,5 @@
 
-import { FaStar, FaCodeBranch, FaGlobe } from "react-icons/fa";
+import { FaGithub, FaGlobe } from "react-icons/fa";
 
 interface ProjectCardProps {
   repo: {
@@ -18,8 +18,6 @@ const ProjectCard = ({ repo }: ProjectCardProps) => {
     name,
     description,
     html_url,
-    stargazers_count,
-    forks_count,
     language,
     homepage
   } = repo;
@@ -37,7 +35,7 @@ const ProjectCard = ({ repo }: ProjectCardProps) => {
         <h3 className="text-base sm:text-lg font-semibold group-hover:text-accent transition-colors break-words">
           {name}
         </h3>
-        {/* GitHub icon removed - whole card is now clickable */}
+        <FaGithub className="text-white/80 group-hover:text-secondary transition-colors" />
       </div>
 
       {description && (
@@ -50,18 +48,13 @@ const ProjectCard = ({ repo }: ProjectCardProps) => {
             {language}
           </span>
         )}
-        <span className="flex items-center gap-1">
-          <FaStar /> {stargazers_count}
-        </span>
-        <span className="flex items-center gap-1">
-          <FaCodeBranch /> {forks_count}
-        </span>
         {homepage && (
           <a
             className="flex items-center gap-1 hover:text-secondary"
             href={homepage}
             target="_blank"
             rel="noreferrer"
+            onClick={(e) => e.stopPropagation()}
           >
             <FaGlobe /> Demo
           </a>
