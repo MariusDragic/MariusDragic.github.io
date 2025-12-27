@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import SectionTitle from "../components/SectionTitle";
-import cvPreview from "../assets/cv_preview.png"; // aperçu image
+import cvPreview from "/cv_preview.png"; // aperçu image
 // icon imports removed (not needed directly in this file)
 
 const About = () => {
