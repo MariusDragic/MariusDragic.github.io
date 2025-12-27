@@ -3,7 +3,6 @@ import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 // Remplace par ton image: place /src/assets/profile.jpg
-import profile from "../assets/pdp.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -54,7 +53,7 @@ const Home = () => {
       <div ref={containerRef} className="container-main flex flex-col items-center justify-center w-full max-w-5xl mx-auto px-2">
         <div className="pfp relative mb-8">
           <img
-            src={profile}
+            src="/pdp.jpg"
             alt="Portrait of Marius Dragic"
             className="w-28 h-28 xs:w-36 xs:h-36 md:w-44 md:h-44 lg:w-56 lg:h-56 rounded-full object-cover border-4 border-primary/70 shadow-glow mx-auto"
           />
