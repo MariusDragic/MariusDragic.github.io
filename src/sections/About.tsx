@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import SectionTitle from "../components/SectionTitle";
-import cvPreview from "/cv_preview.png"; // aperçu image
+// import cvPreview from "/cv_preview.png"; // aperçu image
 // icon imports removed (not needed directly in this file)
 
 const About = () => {
@@ -98,11 +98,11 @@ const About = () => {
           <SectionTitle title="Resume" />
           <div className="w-full flex flex-col items-center justify-center gap-6">
             <img
-              src={cvPreview}
+              src="/cv_preview.png"
               alt="Preview of Marius Dragic's CV"
               className="w-full max-w-2xl rounded-xl shadow-xl object-contain bg-white p-2 sm:p-4"
-              style={{ background: 'white' }}
             />
+
             <a
               href="/CV_Marius_Dragic.pdf"
               download
